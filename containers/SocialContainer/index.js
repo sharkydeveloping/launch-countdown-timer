@@ -1,24 +1,18 @@
 import React from "react";
 import LinkItem from "../../components/LinkItem";
 import FacebookIcon from '/public/icons/icon-facebook.svg';
+import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa"; 
 import PinterestIcon from '/public/icons/icon-pinterest.svg';
 import InstagramIcon from '/public/icons/icon-instagram.svg';
 
 const socials = [
     {
-        name: 'Facebook',
-        icon: <FacebookIcon />,
-        href: '#',
-    },
-    {
-        name: 'Pinterest',
-        icon: <PinterestIcon />,
-        href: '#',
-    },
-    {
-        name: 'Instagram',
-        icon: <InstagramIcon />,
-        href: '#',
+        name: 'Discord',
+        icon: <FaDiscord style={{
+            color: '#7289da',
+            fontSize: '1.5rem',
+        }} />,
+        href: 'https://discord.gg/mnYVSpR3tw/',
     },
 ];
 

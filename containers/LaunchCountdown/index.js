@@ -1,39 +1,49 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Countdown from "../../components/Countdown";
 
-const LaunchCountdown = ({ days, hours, minutes, seconds }) => {
-    const [time, setTime] = useState(days * 24 * 3600 + hours * 3600 + minutes * 60 + seconds);
+const LaunchCountdown = () => {
+  const calculateTimeLeft = () => {
+    const difference = +new Date(`2024-01-16T18:00:00`) - +new Date();
+    let timeLeft = {};
 
-    const remainTime = useMemo(() => {
-        const days = Math.floor(time / 24 / 3600);
-        const hours = Math.floor((time - days * 24 * 3600) / 3600);
-        const minutes = Math.floor((time - days * 24 * 3600 - hours * 3600) / 60);
-        const seconds = (time - days * 24 * 3600 - hours * 3600) % 60;
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    } else {
+      timeLeft = {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        pastDue: true,
+      };
+    }
 
-        return {
-            days,
-            hours,
-            minutes,
-            seconds
-        }
-    }, [time]);
+    return timeLeft;
+  };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTime(time => time !== 0 ? time - 1 : 0);
-        }, 1000);
+  const [time, setTime] = useState(calculateTimeLeft());
 
-        return () => clearInterval(interval);
-    }, []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(calculateTimeLeft());
+    }, 1000);
 
-    return (
-        <>
-            <Countdown prev={0} count={remainTime.days} label={'days'} />
-            <Countdown prev={0} count={remainTime.hours} label={'hours'} />
-            <Countdown prev={0} count={remainTime.minutes} label={'minutes'} />
-            <Countdown prev={0} count={remainTime.seconds} label={'seconds'} />
-        </>
-    );
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <>
+      <Countdown prev={0} count={time.days} label={"Dias"} key={"1"} />
+      <Countdown prev={0} count={time.hours} label={"Horas"} />
+      <Countdown prev={0} count={time.minutes} label={"Minutos"} />
+      <Countdown prev={0} count={time.seconds} label={"Segundos"} />
+    </>
+  );
 };
 
 export default LaunchCountdown;

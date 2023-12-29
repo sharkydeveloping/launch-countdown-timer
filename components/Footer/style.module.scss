@@ -21,15 +21,19 @@
       @include media(">desktop") {
         &:hover {
           svg path {
-            fill: #FB5E84;
+            fill: #ffe2e9;
+            transition: all 0.1s ease-in-out;
           }
+          
         }
       }
 
       svg {
         width: 24px;
         height: 24px;
+        
       }
+
     }
   }
 }
