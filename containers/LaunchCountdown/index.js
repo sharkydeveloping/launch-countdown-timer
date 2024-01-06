@@ -3,7 +3,7 @@ import Countdown from "../../components/Countdown";
 
 const LaunchCountdown = () => {
   const calculateTimeLeft = () => {
-    const difference = +new Date(`2024-01-16T18:00:00`) - +new Date();
+    const difference = +new Date(`2024-02-06T18:00:00`) - +new Date();
     let timeLeft = {};
 
     if (difference > 0) {
